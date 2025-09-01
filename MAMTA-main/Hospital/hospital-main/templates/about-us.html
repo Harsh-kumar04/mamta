@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <!-- doccure/blank-page.html  30 Nov 2019 04:12:20 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=0"
+    />
+    <title>HealthStack</title>
+
+    <!-- Favicons -->
+    <link
+      type="image/x-icon"
+      href="{% static 'HealthStack-System/images/Normal/favicon.png' %}"
+      rel="icon"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normal/bootstrap.min.css' %}"
+    />
+
+    <!-- Fontawesome CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}"
+    />
+
+    <!-- Main CSS -->
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/css/Normal/style.css' %}"
+    />
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="assets/js/html5shiv.min.js"></script>
+      <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+      <!-- Header -->
+      <header class="header">{% include 'navbar_home.html' %}</header>
+      <!-- /Header -->
+
+      <!-- Breadcrumb -->
+      <div class="breadcrumb-bar">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+            <div class="col-md-12 col-12">
+              <nav aria-label="breadcrumb" class="page-breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                    <a href="index-2.html">Home</a>
+                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">
+                    About Us
+                  </li>
+                </ol>
+              </nav>
+              <h2 class="breadcrumb-title">About Us</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Breadcrumb -->
+
+      <!-- Page Content -->
+      <!-- About Us Section -->
+      <div class="content py-5 bg-light">
+        <div class="container">
+          <div class="row align-items-center">
+            <!-- Left side image -->
+            <div class="col-md-5 mb-4 mb-md-0" data-aos="fade-right">
+              <img
+                src="/static/images/img.png"
+                alt="Mahima Medicare"
+                class="img-fluid rounded shadow-lg"
+              />
+            </div>
+
+            <!-- Right side content -->
+            <div class="col-md-7" data-aos="fade-left">
+              <h2 class="fw-bold mb-3 text-primary">About Us</h2>
+              <p class="lead">
+                <strong>ମହୀମା ମେଡିକେୟାର</strong> ହେଉଛି ଏକ ପଲିକ୍ଲିନିକ୍ — ଏକ
+                ସ୍ୱାସ୍ଥ୍ୟସେବା କେନ୍ଦ୍ର ଯାହା ବିଭିନ୍ନ ପ୍ରକାରର ଚିକିତ୍ସା ସେବାକୁ ଏକ
+                ଛାତ ତଳେ ଯୋଗାଇଥାଏ।
+              </p>
+              <p>
+                We provide
+                <strong>comprehensive healthcare services</strong> with expert
+                doctors, modern infrastructure, and dedicated paramedics. From
+                emergency care to home support, we are available
+                <strong>24x7 to monitor, track, and improve patient care</strong
+                >.
+              </p>
+              <p>
+                At Mahima Medicare, you may walk in with concerns but you’ll
+                walk out with <strong>wellness</strong>. This is our promise.
+              </p>
+
+              <h5 class="mt-4 text-success">
+                <em>"Mahima Medicare – Your Health Partner"</em>
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AOS Animation Library -->
+      <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+      <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+      <script>
+        AOS.init({
+          duration: 1000,
+          once: true,
+        });
+      </script>
+
+      <!-- /Page Content -->
+
+      <!-- Footer -->
+      {% include 'footer.html' %}
+      <!-- /Footer -->
+    </div>
+    <!-- /Main Wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'HealthStack-System/js/Normal/jquery.min.js' %}"></script>
+
+    <!-- Bootstrap Core JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/popper.min.js' %}"></script>
+    <script src="{% static 'HealthStack-System/js/Normal/bootstrap.min.js' %}"></script>
+
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/fontawesome.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'HealthStack-System/plugins/Normal/fontawesome/css/all.min.css' %}"
+    />
+
+    <!-- Slick JS -->
+    <script src="{% static 'HealthStack-System/js/Normal/slick.js' %}"></script>
+
+    <!-- Custom JS -->
+    <script src="{% static 'HealthStack-System/Outside_assets/js/script.js' %}"></script>
+  </body>
+
+  <!-- doccure/blank-page.html  30 Nov 2019 04:12:20 GMT -->
+</html>

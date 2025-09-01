@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Medicines expiring in ≤ 3 months</h1>
+<table>
+  <tr><th>Name</th><th>Expiry Date</th><th>Stock</th></tr>
+  {% for med in expiring %}
+  <tr>
+    <td>{{ med.name }}</td>
+    <td>{{ med.expiry_date }}</td>
+    <td>{{ med.stock_quantity }}</td>
+  </tr>
+  {% empty %}
+  <tr><td colspan="3">No medicines expiring soon.</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

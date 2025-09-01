@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+env/
+venv/
+
+# Django stuff
+*.log
+*.pot
+*.pyc
+/staticfiles/
+/media/
+
+# PyCharm
+.idea/
+
+# OS files
+.DS_Store

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>My Invoices</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Medicine</th>
+                <th>Quantity</th>
+                <th>Price at Sale</th>
+                <th>Total Price</th>
+                <th>Sold At</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sale in sales %}
+            <tr>
+                <td>{{ sale.medicine.name }}</td>
+                <td>{{ sale.quantity }}</td>
+                <td>{{ sale.price_at_sale }}</td>
+                <td>{{ sale.total_price }}</td>
+                <td>{{ sale.sold_at }}</td>
+            </tr>
+        {% empty %}
+            <tr><td colspan="5">No invoices found.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
