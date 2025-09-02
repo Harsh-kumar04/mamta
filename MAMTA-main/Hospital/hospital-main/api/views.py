@@ -8,7 +8,6 @@ from doctor.models import Doctor_Information
 @api_view(['GET'])
 def getRoutes(request):
     # Specify which urls (routes) to accept
-    
     routes = [
         {'GET': '/api/hospital/'},
         {'GET': '/api/hospital/id'},

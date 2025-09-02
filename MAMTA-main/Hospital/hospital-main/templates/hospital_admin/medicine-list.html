@@ -90,12 +90,13 @@
 													<th>Medicine Category</th>
 													<th>Price</th>
 													<th>Each Quantity</th>
+													<th>Expiry</th>
 													<th>Edit Medicine</th>
 													<th>Delete Medicine</th>
 												</tr>
 											 </thead>
 											 {% for medicine in medicine %}
-												<tr>
+												<tr {% if medicine.expiry_date and medicine.expiry_date <= today %}class="table-danger"{% elif medicine.is_expiring_soon %}class="table-warning"{% endif %}>
 													<td>
 														<h2 class="table-avatar">
 															<a href="" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{medicine.featured_image.url}}" alt="Medicine Image"></a>															
@@ -107,6 +108,16 @@
 													<td>{{medicine.medicine_category}}</td>
 													<td>{{medicine.price}}</td>
 													<td>{{medicine.quantity}}</td>
+													<td>
+														{{ medicine.expiry_date|date:'Y-m-d' }}
+														{% if medicine.expiry_date %}
+															{% if medicine.expiry_date <= today %}
+																<span class="badge badge-danger">Expired</span>
+															{% elif medicine.is_expiring_soon %}
+																<span class="badge badge-warning">Expiring soon</span>
+															{% endif %}
+														{% endif %}
+													</td>
 													<td><a href="{% url 'edit-medicine' pk=medicine.serial_number %}" class="btn btn-primary">Edit</a></td>
 													<td><a href="{% url 'delete-medicine' pk=medicine.serial_number %}" onclick="return confirm('Are you sure you want to Delete?');" class="btn btn-danger btn-m">Delete</a></td>
 												</tr>

@@ -605,14 +605,16 @@ def medicine_list(request):
                         'pharmacist':pharmacist,
                         'search_query': search_query,
                         'order': order,
-                        'carts': carts,}
+                        'carts': carts,
+                        'today': datetime.date.today(),}
                 return render(request, 'hospital_admin/medicine-list.html',context)
             else:
                 context = {'medicine':medicine,
                             'pharmacist':pharmacist,
                             'search_query': search_query,
                             'orders': orders,
-                            'carts': carts,}
+                            'carts': carts,
+                            'today': datetime.date.today(),}
                 return render(request, 'hospital_admin/medicine-list.html',context)
                 
 
@@ -646,6 +648,7 @@ def add_medicine(request):
        medicine_type = request.POST.get('medicine_type')
        description = request.POST.get('description')
        price = request.POST.get('price')
+       expiry_date = request.POST.get('expiry_date')
        
        medicine.name = name
        medicine.Prescription_reqiuired = Prescription_reqiuired
@@ -658,6 +661,12 @@ def add_medicine(request):
        medicine.featured_image = featured_image
        medicine.stock_quantity = 80
        #medicine.medicine_id = generate_random_medicine_ID()
+       # optional: set expiry date if provided
+       if expiry_date:
+           try:
+               medicine.expiry_date = expiry_date
+           except Exception:
+               pass
        
        medicine.save()
        
@@ -687,6 +696,7 @@ def edit_medicine(request, pk):
                 medicine_type = request.POST.get('medicine_type')
                 description = request.POST.get('description')
                 price = request.POST.get('price')
+                expiry_date = request.POST.get('expiry_date')
                 
                 medicine.name = name
                 medicine.Prescription_reqiuired = Prescription_reqiuired
@@ -699,6 +709,11 @@ def edit_medicine(request, pk):
                 medicine.featured_image = featured_image
                 medicine.stock_quantity = 80
                 #medicine.medicine_id = generate_random_medicine_ID()
+                if expiry_date:
+                    try:
+                        medicine.expiry_date = expiry_date
+                    except Exception:
+                        pass
             
                 medicine.save()
             
@@ -1055,7 +1070,8 @@ def pharmacist_dashboard(request):
                        'total_pharmacist_count':total_pharmacist_count, 
                        'total_medicine_count':total_medicine_count, 
                        'total_order_count':total_order_count,
-                       'total_cart_count':total_cart_count}
+                       'total_cart_count':total_cart_count,
+                       'today': datetime.date.today()}
             return render(request, 'hospital_admin/pharmacist-dashboard.html',context)
 
 @csrf_exempt

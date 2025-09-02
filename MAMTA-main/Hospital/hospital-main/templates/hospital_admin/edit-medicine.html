@@ -270,7 +270,26 @@
 															</div>
 														</div>
 													</div>
-												
+                                                <div class="card card-table">
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover table-center">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="min-width: 300px">Expiry Date</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <input class="form-control" type="date" name="expiry_date" value="{{ medicine.expiry_date|date:'Y-m-d' }}">
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
 												<div class="submit-section">
 													<button type="submit" class="btn btn-primary submit-btn">
 														Save Changes

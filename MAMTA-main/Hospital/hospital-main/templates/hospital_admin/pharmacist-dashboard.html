@@ -168,13 +168,14 @@
                                <th>Medicine Type</th>
                                <th>Medicine Category</th>
                                <th>Price</th>
+                               <th>Expiry</th>
                              </tr>
                             </thead>
                             {% for medicine in medicine %}
-                             <tr>
+                             <tr {% if medicine.expiry_date and medicine.expiry_date <= today %}class="table-danger"{% elif medicine.is_expiring_soon %}class="table-warning"{% endif %}>
                                <td>
                                  <h2 class="table-avatar">
-                                   <a href="" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{medicine.featured_image.url}}" alt="Medicine Image"></a>															
+                                   <a href="" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{medicine.featured_image.url}}" alt="Medicine Image"></a>													
                                    <a href="">{{medicine.name}}</a>
                                  </h2>
                                </td>
@@ -182,6 +183,16 @@
                                <td>{{medicine.medicine_type}}</td>
                                <td>{{medicine.medicine_category}}</td>
                                <td>{{medicine.price}}</td>
+                               <td>
+                                 {{ medicine.expiry_date|date:'Y-m-d' }}
+                                 {% if medicine.expiry_date %}
+                                   {% if medicine.expiry_date <= today %}
+                                     <span class="badge badge-danger">Expired</span>
+                                   {% elif medicine.is_expiring_soon %}
+                                     <span class="badge badge-warning">Expiring soon</span>
+                                   {% endif %}
+                                 {% endif %}
+                               </td>
                              </tr>
                              {% endfor %}
                          </table>
