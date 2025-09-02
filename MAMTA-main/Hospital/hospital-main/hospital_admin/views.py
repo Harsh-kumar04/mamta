@@ -29,7 +29,7 @@ from django.core.mail import BadHeaderError, send_mail
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils.html import strip_tags
-from .utils import searchMedicines
+from .utils import searchMedicines, notify_admins_medicine_expiring, notify_admins_medicine_low_stock
 
 # Create your views here.
 
@@ -648,6 +648,7 @@ def add_medicine(request):
        medicine_type = request.POST.get('medicine_type')
        description = request.POST.get('description')
        price = request.POST.get('price')
+       stock_quantity = request.POST.get('stock_quantity')
        expiry_date = request.POST.get('expiry_date')
        
        medicine.name = name
@@ -659,7 +660,11 @@ def add_medicine(request):
        medicine.description = description
        medicine.price = price
        medicine.featured_image = featured_image
-       medicine.stock_quantity = 80
+       # dynamic stock quantity
+       try:
+           medicine.stock_quantity = int(stock_quantity) if stock_quantity is not None and stock_quantity != '' else 0
+       except Exception:
+           medicine.stock_quantity = 0
        #medicine.medicine_id = generate_random_medicine_ID()
        # optional: set expiry date if provided
        if expiry_date:
@@ -669,6 +674,17 @@ def add_medicine(request):
                pass
        
        medicine.save()
+       # Notify admins if expiring within 3 months
+       try:
+           notify_admins_medicine_expiring(medicine)
+       except Exception:
+           pass
+       # Notify admins if low stock
+       try:
+           if (medicine.stock_quantity or 0) <= 10:
+               notify_admins_medicine_low_stock(medicine)
+       except Exception:
+           pass
        
        return redirect('medicine-list')
    
@@ -696,6 +712,7 @@ def edit_medicine(request, pk):
                 medicine_type = request.POST.get('medicine_type')
                 description = request.POST.get('description')
                 price = request.POST.get('price')
+                stock_quantity = request.POST.get('stock_quantity')
                 expiry_date = request.POST.get('expiry_date')
                 
                 medicine.name = name
@@ -707,7 +724,10 @@ def edit_medicine(request, pk):
                 medicine.description = description
                 medicine.price = price
                 medicine.featured_image = featured_image
-                medicine.stock_quantity = 80
+                try:
+                    medicine.stock_quantity = int(stock_quantity) if stock_quantity is not None and stock_quantity != '' else medicine.stock_quantity
+                except Exception:
+                    pass
                 #medicine.medicine_id = generate_random_medicine_ID()
                 if expiry_date:
                     try:
@@ -716,6 +736,17 @@ def edit_medicine(request, pk):
                         pass
             
                 medicine.save()
+                # Notify admins if expiring within 3 months
+                try:
+                    notify_admins_medicine_expiring(medicine)
+                except Exception:
+                    pass
+                # Notify admins if low stock
+                try:
+                    if (medicine.stock_quantity or 0) <= 10:
+                        notify_admins_medicine_low_stock(medicine)
+                except Exception:
+                    pass
             
                 return redirect('medicine-list')
    

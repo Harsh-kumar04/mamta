@@ -83,6 +83,15 @@ class Medicine(models.Model):
     is_expiring_soon.boolean = True
     is_expiring_soon.short_description = 'Expiring ≤ 3 months'
 
+    def is_low_stock(self) -> bool:
+        """Return True if stock is at or below low-stock threshold (10)."""
+        try:
+            return (self.stock_quantity or 0) <= 10
+        except Exception:
+            return False
+    is_low_stock.boolean = True
+    is_low_stock.short_description = 'Low stock (≤10)'
+
 
 class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='cart')
@@ -194,6 +203,19 @@ class Order(models.Model):
             # finalize order
             self.ordered = True
             self.save(update_fields=['ordered'])
+            # After finalizing, notify admins for any low stock items
+            try:
+                from hospital_admin.utils import notify_admins_medicine_low_stock
+                for cart_item in self.orderitems.select_related('item').all():
+                    med = cart_item.item
+                    med.refresh_from_db()
+                    if (med.stock_quantity or 0) <= 10:
+                        try:
+                            notify_admins_medicine_low_stock(med)
+                        except Exception:
+                            pass
+            except Exception:
+                pass
             return True
 
     # TOTAL

@@ -172,14 +172,19 @@
                              </tr>
                             </thead>
                             {% for medicine in medicine %}
-                             <tr {% if medicine.expiry_date and medicine.expiry_date <= today %}class="table-danger"{% elif medicine.is_expiring_soon %}class="table-warning"{% endif %}>
+                             <tr {% if medicine.expiry_date and medicine.expiry_date <= today %}class="table-danger"{% elif medicine.is_expiring_soon or medicine.is_low_stock %}class="table-warning"{% endif %}>
                                <td>
                                  <h2 class="table-avatar">
-                                   <a href="" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{medicine.featured_image.url}}" alt="Medicine Image"></a>													
+                                   <a href="" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="{{medicine.featured_image.url}}" alt="Medicine Image"></a>
                                    <a href="">{{medicine.name}}</a>
                                  </h2>
                                </td>
-                               <td>{{medicine.stock_quantity}}</td>
+                               <td>
+                                 {{medicine.stock_quantity}}
+                                 {% if medicine.is_low_stock %}
+                                   <span class="badge badge-warning">Low stock</span>
+                                 {% endif %}
+                               </td>
                                <td>{{medicine.medicine_type}}</td>
                                <td>{{medicine.medicine_category}}</td>
                                <td>{{medicine.price}}</td>
